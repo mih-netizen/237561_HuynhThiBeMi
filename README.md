@@ -8,23 +8,10 @@
 
 ## CÂU 5: ĐÓNG GÓI DOCKER & DOCKER HUB
 
-- **Backend Docker Image**: `bemi2608/backend:latest`
-- **Docker Hub Link**: [https://hub.docker.com/r/bemi2608/backend](https://hub.docker.com/r/bemi2608/backend)
+- **Docker Hub Repository**: [https://hub.docker.com/r/bemi2608/237561huynhthibemi](https://hub.docker.com/r/bemi2608/237561huynhthibemi)
+- **Backend Docker Image**: `bemi2608/237561huynhthibemi:latest`
 
-### Lệnh chạy Docker Container Backend:
+### Lệnh Build & Push Image:
 ```bash
-docker run -d -p 5000:5000 \
-  -e PORT=5000 \
-  -e MONGO_URI="mongodb+srv://mih892970_db_user:mi12345@cluster0.xxxxxx.mongodb.net/237561_HuynhThiBeMi?retryWrites=true&w=majority" \
-  bemi2608/backend:latest
-
----
-
-### Đẩy cập nhật cuối cùng lên GitHub
-
-Mở Terminal trong VS Code (`Ctrl + ~`) và chạy 3 lệnh sau để lưu lại thông tin Docker Hub chính xác của bạn:
-
-```cmd
-git add README.md
-git commit -m "Docs: Update Docker Hub username to bemi2608 in README"
-git push origin main
+docker build -t bemi2608/237561huynhthibemi:latest ./backend
+docker push bemi2608/237561huynhthibemi:latest
