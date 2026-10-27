@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Nhân Sự - 237561 - Huỳnh Thị Bé Mị</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container my-4">
+    <h2 class="text-center text-primary mb-4">HỆ THỐNG QUẢN LÝ NHÂN SỰ</h2>
+    <div class="card p-3 mb-4 shadow-sm">
+      <h5>Tìm kiếm nhân viên</h5>
+      <div class="input-group">
+        <input type="text" id="searchInput" class="form-control" placeholder="Nhập mã hoặc tên nhân viên...">
+        <button class="btn btn-primary" onclick="searchEmployee()">Tìm kiếm</button>
+      </div>
+    </div>
+    <div class="card p-3 shadow-sm">
+      <h5>Danh sách nhân viên</h5>
+      <table class="table table-striped mt-2">
+        <thead>
+          <tr>
+            <th>Mã NV</th>
+            <th>Họ và Tên</th>
+            <th>Email</th>
+            <th>Chức vụ</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTable">
+          <tr><td colspan="5" class="text-center">Đang tải dữ liệu...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:5000/api/employees';
+
+    async function loadEmployees() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        renderTable(data);
+      } catch (err) {
+        document.getElementById('employeeTable').innerHTML = `<tr><td colspan="5" class="text-danger text-center">Không thể kết nối Backend API</td></tr>`;
+      }
+    }
+
+    async function searchEmployee() {
+      const q = document.getElementById('searchInput').value;
+      try {
+        const res = await fetch(`${API_URL}?search=${q}`);
+        const data = await res.json();
+        renderTable(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderTable(list) {
+      const tbody = document.getElementById('employeeTable');
+      if(!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center">Không có dữ liệu</td></tr>';
+        return;
+      }
+      tbody.innerHTML = list.map(emp => `
+        <tr>
+          <td><b>${emp.employeeId || ''}</b></td>
+          <td>${emp.fullName || ''}</td>
+          <td>${emp.email || ''}</td>
+          <td>${emp.position || 'Nhân viên'}</td>
+          <td><span class="badge bg-success">${emp.status || 'Đang làm việc'}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    loadEmployees();
+  </script>
+</body>
+</html>
