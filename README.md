@@ -11,7 +11,11 @@
 - **Docker Hub Repository**: [https://hub.docker.com/r/bemi2608/237561huynhthibemi](https://hub.docker.com/r/bemi2608/237561huynhthibemi)
 - **Backend Docker Image**: `bemi2608/237561huynhthibemi:latest`
 
-### Lệnh Build & Push Image:
+### 1. Lệnh Build & Push Image từ Dockerfile:
 ```bash
 docker build -t bemi2608/237561huynhthibemi:latest ./backend
 docker push bemi2608/237561huynhthibemi:latest
+docker run -d -p 5000:5000 \
+  -e PORT=5000 \
+  -e MONGO_URI="mongodb+srv://mih892970_db_user:mi12345@cluster0.xxxxxx.mongodb.net/237561_HuynhThiBeMi?retryWrites=true&w=majority" \
+  bemi2608/237561huynhthibemi:latest
