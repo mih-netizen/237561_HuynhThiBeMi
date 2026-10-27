@@ -6,16 +6,17 @@
 
 ---
 
-## CÂU 5: ĐÓNG GÓI BACKEND BẰNG DOCKER & DOCKER HUB
+## DOCKER HUB REPOSITORIES
 
-- **Docker Hub Repository**: [https://hub.docker.com/r/bemi2608/237561huynhthibemi](https://hub.docker.com/r/bemi2608/237561huynhthibemi)
-- **Backend Docker Image**: `bemi2608/237561huynhthibemi:latest`
+- **Trang Repositories tổng**: [https://hub.docker.com/repositories/bemi2608](https://hub.docker.com/repositories/bemi2608)
+- **Backend Docker Repository**: [https://hub.docker.com/r/bemi2608/237561huynhthibemi](https://hub.docker.com/r/bemi2608/237561huynhthibemi)
+- **Frontend Docker Repository**: [https://hub.docker.com/r/bemi2608/237561huynhthibemi-frontend](https://hub.docker.com/r/bemi2608/237561huynhthibemi-frontend)
 
-### Lệnh Build & Push Image Backend:
+---
+
+## 1. CÂU 5: ĐÓNG GÓI BACKEND
+- **Image**: `bemi2608/237561huynhthibemi:latest`
 ```bash
 docker build -t bemi2608/237561huynhthibemi:latest ./backend
 docker push bemi2608/237561huynhthibemi:latest
-docker run -d -p 5000:5000 \
-  -e PORT=5000 \
-  -e MONGO_URI="mongodb+srv://mih892970_db_user:mi12345@cluster0.xxxxxx.mongodb.net/237561_HuynhThiBeMi?retryWrites=true&w=majority" \
-  bemi2608/237561huynhthibemi:latest
+docker run -d -p 5000:5000 -e PORT=5000 -e MONGO_URI="mongodb+srv://mih892970_db_user:mi12345@cluster0.xxxxxx.mongodb.net/237561_HuynhThiBeMi?retryWrites=true&w=majority" bemi2608/237561huynhthibemi:latest
