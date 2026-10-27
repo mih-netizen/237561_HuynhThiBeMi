@@ -17,3 +17,18 @@ docker run -d -p 5000:5000 \
   -e PORT=5000 \
   -e MONGO_URI="mongodb+srv://mih892970_db_user:mi12345@cluster0.xxxxxx.mongodb.net/237561_HuynhThiBeMi?retryWrites=true&w=majority" \
   mih-netizen/backend:latest
+
+---
+
+### BƯỚC 2: Kiểm tra file `backend/Dockerfile`
+
+Đảm bảo file **`backend/Dockerfile`** đã có sẵn mã chuẩn này (không lưu mật khẩu trực tiếp trong Dockerfile):
+
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 5000
+CMD ["node", "server.js"]
